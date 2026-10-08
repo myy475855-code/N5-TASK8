@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Internship Catalog</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div><strong>Internship Catalog</strong><span class="badge">V2</span></div>
+  <a href="/api-docs" target="_blank">API Docs</a>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>Find your next internship</h1>
+    <p>Search and filter internships without loading the whole database.</p>
+  </section>
+
+  <section class="filters">
+    <input id="search" type="search" placeholder="Search title or company..." autocomplete="off">
+    <select id="location"><option value="">All locations</option></select>
+    <select id="category"><option value="">All categories</option></select>
+    <select id="sort">
+      <option value="newest">Newest</option>
+      <option value="oldest">Oldest</option>
+      <option value="title_asc">Title A-Z</option>
+      <option value="title_desc">Title Z-A</option>
+      <option value="stipend_desc">Highest stipend</option>
+      <option value="stipend_asc">Lowest stipend</option>
+    </select>
+  </section>
+
+  <div id="status" class="status"></div>
+  <section id="grid" class="grid"></section>
+  <section id="empty" class="empty hidden">
+    <h2>No internships found</h2>
+    <p>Try changing your search or filters.</p>
+  </section>
+  <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+</main>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

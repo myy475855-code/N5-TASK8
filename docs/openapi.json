@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Internship Catalog API",
+    "version": "1.0.0",
+    "description": "Server-side search, filtering, sorting, pagination and secure profile uploads."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/internships": {
+      "get": {
+        "summary": "Search, filter, sort and paginate internships",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "software"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Lahore"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Software Development"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "newest",
+                "oldest",
+                "title_asc",
+                "title_desc",
+                "stipend_desc",
+                "stipend_asc"
+              ]
+            },
+            "example": "newest"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            },
+            "example": 12
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated internship list",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": [],
+                  "page": 1,
+                  "limit": 12,
+                  "total": 240,
+                  "totalPages": 20
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companies/{id}/logo": {
+      "post": {
+        "summary": "Upload company logo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Uploaded"
+          },
+          "403": {
+            "description": "Ownership failure"
+          },
+          "422": {
+            "description": "Validation failure"
+          }
+        }
+      }
+    },
+    "/students/{id}/resume": {
+      "post": {
+        "summary": "Upload student PDF resume",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Uploaded"
+          },
+          "403": {
+            "description": "Ownership failure"
+          },
+          "422": {
+            "description": "Validation failure"
+          }
+        }
+      }
+    }
+  }
+}
